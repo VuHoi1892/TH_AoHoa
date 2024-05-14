@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <math.h>
+
+int isPerfectSquare(int num) {
+    int root = (int)sqrt(num);
+    return root * root == num;
+}
+
+void printPerfectSquares(int n) {
+    printf("Các số chính phương nhỏ hơn %d:\n", n);
+    for (int i = 1; i * i < n; i++) {
+        printf("%d ", i * i);
+    }
+    printf("\n");
+}
+
+int countPerfectSquares(int n) {
+    int count = 0;
+    for (int i = 1; i * i < n; i++) {
+        count++;
+    }
+    return count;
+}
+
+int main() {
+    int n;
+    printf("Nhập vào một số nguyên dương n: ");
+    scanf("%d", &n);
+
+    if (n > 0) {
+        printPerfectSquares(n);
+        int count = countPerfectSquares(n);
+        printf("Có %d số chính phương nhỏ hơn %d.\n", count, n);
+    } else {
+        printf("Vui lòng nhập một số nguyên dương.\n");
+    }
+
+    return 0;
+}
