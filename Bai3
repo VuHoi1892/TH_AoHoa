@@ -1,37 +1,35 @@
-#include <stdio.h>
 
-void insertionSort(int arr[], int n) {
-    for (int i = 1; i < n; i++) {
-        int key = arr[i];
-        int j = i - 1;
 
-        // Di chuyển các phần tử của arr[0..i-1], lớn hơn key, đến vị trí trước đó của chúng
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j = j - 1;
-        }
-        arr[j + 1] = key;
-    }
-}
+from ._anvil_designer import Form1Template
+from anvil import *
+import anvil.server
 
-int main() {
-    int n;
-    printf("Nhập vào số lượng phần tử: ");
-    scanf("%d", &n);
 
-    int arr[n];
-    printf("Nhập vào các phần tử của mảng:\n");
-    for (int i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
-    }
 
-    insertionSort(arr, n);
+class Form1(Form1Template):
+  def __init__(self, **properties):
+    # Set Form properties and Data Bindings.
+    self.init_components(**properties)
 
-    printf("Mảng sau khi sắp xếp:\n");
-    for (int i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
-    }
-    printf("\n");
+    # Any code you write here will run before the form opens.
+  def insertion_sort(self, arr):
+    for i in range(1, len(arr)):
+      key = arr[i]
+      j = i - 1
+      while j >= 0 and arr[j] > key:
+        arr[j + 1] = arr[j]
+        j -= 1
+      arr[j + 1] = key
+    return arr
 
-    return 0;
-}
+  def btnSX_click(self, **event_args):
+    # Hàm xử lý khi bấm nút "Sắp xếp"
+    try:
+      # Lấy dữ liệu từ TextBox và chuyển đổi thành danh sách các số nguyên
+      numbers = list(map(int, self.txtDaySo.text.split()))
+      sorted_numbers = self.insertion_sort(numbers)
+      # Hiển thị kết quả sau khi sắp xếp
+      self.txtDaySoSX.text = ' '.join(map(str, sorted_numbers))
+    except ValueError:
+      alert("Vui lòng nhập vào một dãy số nguyên hợp lệ.")
+
